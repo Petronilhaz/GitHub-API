@@ -9,6 +9,7 @@ import { screen } from "/src/scripts/objects/screen.js"
 document.getElementById("btn-search").addEventListener("click", () => {
     let userName = document.getElementById("input-search").value
     if(validateInput(userName)) return
+    console.log(userName)
     getUserData(userName) 
 })
 
@@ -22,11 +23,20 @@ document.getElementById("input-search").addEventListener("keyup", (e) => {
         getUserData(userName)
     }
 })
+/*
+repositoriesResponse.forks_count
+repositoriesResponse.stargazers_count
+repositoriesResponse.watchers_count
+repositoriesResponse.language
+*/
+
 
 async function getUserData(userName){
     const userResponse = await getUser(userName)
     const repositoriesResponse = await getRepositories(userName)
     const userEvents = await getEvents(userName)
+    console.log('Response: ', repositoriesResponse)
+    
 
     if(userResponse.message === "Not Found"){
         screen.renderNotFound()
